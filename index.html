@@ -39,6 +39,420 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <base target="_blank">
+  <style>
+    /* ===== Countdown Timer Section ===== */
+    .countdown-section {
+      position: relative;
+      padding: 80px 0;
+      background: linear-gradient(135deg, #0d1426 0%, #1a2847 50%, #0d1426 100%);
+      overflow: hidden;
+      border-top: 1px solid rgba(0, 229, 255, 0.1);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    }
+
+    .countdown-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 229, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .countdown-bg-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .countdown-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #00e5ff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+      animation: float-particle 15s infinite linear;
+    }
+
+    .countdown-particle:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+
+    .countdown-particle:nth-child(2) {
+      left: 30%;
+      animation-delay: 3s;
+      animation-duration: 22s;
+      background: #8a2be2;
+      box-shadow: 0 0 10px #8a2be2;
+    }
+
+    .countdown-particle:nth-child(3) {
+      left: 55%;
+      animation-delay: 6s;
+      animation-duration: 16s;
+    }
+
+    .countdown-particle:nth-child(4) {
+      left: 75%;
+      animation-delay: 9s;
+      animation-duration: 20s;
+      background: #8a2be2;
+      box-shadow: 0 0 10px #8a2be2;
+    }
+
+    .countdown-particle:nth-child(5) {
+      left: 90%;
+      animation-delay: 12s;
+      animation-duration: 25s;
+    }
+
+    @keyframes float-particle {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .countdown-wrapper {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .countdown-header {
+      margin-bottom: 50px;
+    }
+
+    .countdown-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(138, 43, 226, 0.15));
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      border-radius: 50px;
+      color: #00e5ff;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+      animation: pulse-badge 2s infinite;
+    }
+
+    @keyframes pulse-badge {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(0, 229, 255, 0);
+      }
+    }
+
+    .countdown-title {
+      font-family: 'Kanit', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #00e5ff 50%, #8a2be2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .countdown-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .countdown-box {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      perspective: 1000px;
+    }
+
+    .countdown-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 20, 38, 0.9), rgba(26, 40, 71, 0.9));
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .countdown-inner::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, #00e5ff, #8a2be2, #00e5ff);
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .countdown-box:hover .countdown-inner {
+      transform: translateY(-8px) scale(1.03);
+      border-color: transparent;
+    }
+
+    .countdown-box:hover .countdown-inner::before {
+      opacity: 1;
+    }
+
+    .countdown-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.4) 0%, transparent 70%);
+      filter: blur(20px);
+      opacity: 0.6;
+      z-index: 1;
+      animation: pulse-glow 3s ease infinite;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+
+    .countdown-number {
+      font-family: 'Kanit', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+      letter-spacing: -1px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .countdown-number.flip {
+      animation: flip-number 0.6s ease;
+    }
+
+    @keyframes flip-number {
+      0% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: rotateX(90deg);
+        opacity: 0;
+      }
+
+      100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
+    .countdown-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(0, 229, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+
+    .countdown-separator {
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(0, 229, 255, 0.6);
+      animation: blink 1s infinite;
+      text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .countdown-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0, 229, 255, 0.15);
+    }
+
+    .countdown-info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .countdown-info-item i {
+      font-size: 1.3rem;
+      color: #00e5ff;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    }
+
+    /* Event Live State */
+    .countdown-timer.event-live {
+      animation: celebrate 1.5s infinite;
+    }
+
+    @keyframes celebrate {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.02);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .countdown-box {
+        width: 90px;
+        height: 110px;
+      }
+
+      .countdown-number {
+        font-size: 2.2rem;
+      }
+
+      .countdown-label {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+      }
+
+      .countdown-separator {
+        font-size: 2rem;
+      }
+
+      .countdown-timer {
+        gap: 8px;
+      }
+
+      .countdown-footer {
+        gap: 20px;
+      }
+
+      .countdown-info-item {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .countdown-box {
+        width: 70px;
+        height: 95px;
+      }
+
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+
+      .countdown-separator {
+        display: none;
+      }
+
+      .countdown-timer {
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 
 <body class="index-page">
@@ -131,7 +545,77 @@
       </div>
 
     </section><!-- /Hero Section -->
+    <!-- Countdown Timer Section -->
+    <section id="countdown" class="countdown-section" aria-labelledby="countdown-title">
+      <div class="countdown-bg-animation">
+        <div class="countdown-particle"></div>
+        <div class="countdown-particle"></div>
+        <div class="countdown-particle"></div>
+        <div class="countdown-particle"></div>
+        <div class="countdown-particle"></div>
+      </div>
+      <div class="container">
+        <div class="countdown-wrapper">
+          <div class="countdown-header">
+            <span class="countdown-badge">
+              <i class="bi bi-lightning-charge-fill"></i> Event Launching Soon
+            </span>
+            <h2 id="countdown-title" class="countdown-title">The Future Begins In</h2>
+            <p class="countdown-subtitle">Yantra Veda Robotics Club Inauguration • 17 November 2026</p>
+          </div>
 
+          <div class="countdown-timer" id="countdown-timer">
+            <div class="countdown-box">
+              <div class="countdown-inner">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-glow"></div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-box">
+              <div class="countdown-inner">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-glow"></div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-box">
+              <div class="countdown-inner">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+              </div>
+              <div class="countdown-glow"></div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-box">
+              <div class="countdown-inner">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+              </div>
+              <div class="countdown-glow"></div>
+            </div>
+          </div>
+
+          <div class="countdown-footer">
+            <div class="countdown-info-item">
+              <i class="bi bi-calendar-event-fill"></i>
+              <span>17 November 2026</span>
+            </div>
+            <div class="countdown-info-item">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>DPG ITM Campus</span>
+            </div>
+            <div class="countdown-info-item">
+              <i class="bi bi-cpu-fill"></i>
+              <span>Robotics • AI • Innovation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Countdown Timer Section -->
     <!-- About Section -->
     <section id="about" class="intro section" aria-labelledby="about-title">
 
@@ -850,6 +1334,58 @@
         });
       });
     });
+  </script>
+  <script>
+    (function () {
+      const eventDate = new Date("November 17, 2026 09:00:00").getTime();
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+      const timerEl = document.getElementById("countdown-timer");
+
+      let prevValues = { days: "", hours: "", minutes: "", seconds: "" };
+
+      function updateValue(el, newVal, key) {
+        const formatted = String(newVal).padStart(2, "0");
+        if (prevValues[key] !== formatted) {
+          el.classList.remove("flip");
+          void el.offsetWidth;
+          el.classList.add("flip");
+          el.textContent = formatted;
+          prevValues[key] = formatted;
+        }
+      }
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+          timerEl.classList.add("event-live");
+          updateValue(daysEl, 0, "days");
+          updateValue(hoursEl, 0, "hours");
+          updateValue(minutesEl, 0, "minutes");
+          updateValue(secondsEl, 0, "seconds");
+          const title = document.getElementById("countdown-title");
+          if (title) title.textContent = "The Event Is Live!";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        updateValue(daysEl, days, "days");
+        updateValue(hoursEl, hours, "hours");
+        updateValue(minutesEl, minutes, "minutes");
+        updateValue(secondsEl, seconds, "seconds");
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
   </script>
 
 </body>
